@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #FFFFFF 0%, #EEEEEE 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 500px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 32px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #f59e0b;
+        font-size: 14px;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-wrapper i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px 15px 12px 40px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 15px;
+        transition: border-color 0.3s;
+      }
+
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .password-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+
+      .password-toggle label {
+        margin: 0;
+        color: #333;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"] {
+        cursor: pointer;
+      }
+
+      .terms {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .terms label {
+        margin: 0;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .terms a {
+        color: #667eea;
+        text-decoration: none;
+      }
+
+      .terms a:hover {
+        text-decoration: underline;
+      }
+
+      .register-btn {
+        width: 100%;
+        padding: 14px;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .register-btn:hover {
+        background: #2563eb;
+      }
+
+      .footer-links {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+
+      .footer-links a {
+        color: #667eea;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      .footer-links a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Register</h1>
+      <form id="registerForm">
+        <div class="form-group">
+          <label>*least 4-20 characters</label>
+          <div class="input-wrapper">
+            <i>👤</i>
+            <input type="text" id="username" placeholder="Username" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>*least 1-30 or more characters</label>
+          <div class="input-wrapper">
+            <i>🆔</i>
+            <input type="text" id="name" placeholder="Name" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>*example name@email.com characters</label>
+          <div class="input-wrapper">
+            <i>✉️</i>
+            <input type="email" id="email" placeholder="Email" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="password-toggle">
+            <span style="color: #333; font-weight: 500">Password</span>
+            <input type="checkbox" id="showPassword" />
+            <label for="showPassword">Show</label>
+          </div>
+          <label
+            >*Must contain at least one number and one uppercase and lowercase
+            letter, and at least 8 or more characters</label
+          >
+          <div class="input-wrapper">
+            <i>🔒</i>
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>*Must contain match with password</label>
+          <div class="input-wrapper">
+            <i>🔒</i>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="ConfirmPassword"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="terms">
+          <input type="checkbox" id="terms" required />
+          <label for="terms"
+            >I accept the <a href="/conditions.html">Term and Condition</a> ,
+
+            <a href="/policy.html">Privacy Policy</a>
+          </label>
+        </div>
+
+        <button type="submit" class="register-btn">Register</button>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+      const form = document.getElementById("registerForm");
+      const showPassword = document.getElementById("showPassword");
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirmPassword");
+
+      showPassword.addEventListener("change", function () {
+        const type = this.checked ? "text" : "password";
+        password.type = type;
+        confirmPassword.type = type;
+      });
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const pass = password.value;
+        const confirmPass = confirmPassword.value;
+
+        if (username.length < 4 || username.length > 20) {
+          alert("Username must be between 4-20 characters");
+          return;
+        }
+
+        if (name.length < 1 || name.length > 30) {
+          alert("Name must be between 1-30 characters");
+          return;
+        }
+
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!passwordRegex.test(pass)) {
+          alert(
+            "Password must contain at least one number, one uppercase and lowercase letter, and at least 8 characters"
+          );
+          return;
+        }
+
+        if (pass !== confirmPass) {
+          alert("Passwords do not match");
+          return;
+        }
+
+        const apiUrl = `${window.location.origin}/app/auth/register`;
+
+        fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            Username: username,
+            Name: name,
+            Email: email,
+            Password: pass,
+          }),
+        })
+          .then(async (response) => {
+            const data = await response.json();
+            if (data.status === 1) {
+              alert("Registration successful!");
+              window.location.href = "/app/registerComp.html";
+            } else {
+              alert(data.message || "Registration failed.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Something went wrong. Please try again.");
+          });
+      });
+    </script>
+  </body>
+</html>
